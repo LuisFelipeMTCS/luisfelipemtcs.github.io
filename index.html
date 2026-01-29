@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luis Felipe - Tech Lead | Senior Data Engineer</title>
+    <meta name="description" content="Tech Lead especializado em Data Lakehouse, pipelines escaláveis e observabilidade.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <script>
+        // Remove console warning
+        console.warn = function() {};
+        
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        
+        @keyframes pulse-glow { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; } }
+        @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fade-in-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .animate-fade-in { animation: fade-in 1s ease-out; }
+        .animate-fade-in-up { animation: fade-in-up 1s ease-out; animation-fill-mode: both; }
+        .lang-hidden { display: none !important; }
+        .tech-badge { transition: all 0.3s ease; }
+        .tech-badge:hover { transform: translateY(-2px); }
+        .profile-image { max-width: 100%; height: auto; object-fit: cover; }
+        .navbar-scrolled { background: rgba(2, 6, 23, 0.95) !important; backdrop-filter: blur(20px); box-shadow: 0 10px 40px rgba(59, 130, 246, 0.1); }
+        
+        /* Fix para títulos não saírem dos cards */
+        .pipeline-card-title {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            word-break: break-word;
+            hyphens: auto;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100">
+    
+    <!-- Animated Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute w-96 h-96 bg-blue-600/10 rounded-full blur-3xl -top-48 -left-48" style="animation: pulse-glow 8s ease-in-out infinite;"></div>
+        <div class="absolute w-96 h-96 bg-purple-600/10 rounded-full blur-3xl top-1/3 -right-48" style="animation: pulse-glow 10s ease-in-out infinite; animation-delay: 2s;"></div>
+        <div class="absolute w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl bottom-0 left-1/3" style="animation: pulse-glow 12s ease-in-out infinite; animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-500 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <div class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent tracking-tight">
+                LF<span class="text-slate-400">.</span>
+            </div>
+            <div class="flex gap-3 sm:gap-6 items-center">
+                <a href="#about" class="text-xs sm:text-sm hover:text-cyan-400 transition-colors duration-300 lang-pt">Sobre</a>
+                <a href="#about" class="text-xs sm:text-sm hover:text-cyan-400 transition-colors duration-300 lang-en lang-hidden">About</a>
+                
+                <a href="#pipeline" class="text-xs sm:text-sm hover:text-cyan-400 transition-colors duration-300 hidden sm:block">Pipeline</a>
+                
+                <a href="#projects" class="text-xs sm:text-sm hover:text-cyan-400 transition-colors duration-300 lang-pt hidden sm:block">Projetos</a>
+                <a href="#projects" class="text-xs sm:text-sm hover:text-cyan-400 transition-colors duration-300 lang-en lang-hidden hidden sm:block">Projects</a>
+                
+                <a href="https://wa.me/5562982650556" target="_blank" class="px-4 sm:px-6 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 text-xs sm:text-sm font-medium lang-pt">
+                    Contato
+                </a>
+                <a href="https://wa.me/5562982650556" target="_blank" class="px-4 sm:px-6 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 text-xs sm:text-sm font-medium lang-en lang-hidden">
+                    Contact
+                </a>
+                
+                <button id="langToggle" class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-full hover:border-cyan-500/50 transition-all duration-300 text-xs sm:text-sm font-medium backdrop-blur-sm">
+                    <span id="currentFlag" class="text-base sm:text-lg">🇧🇷</span>
+                    <span id="currentLang" class="hidden sm:inline text-xs sm:text-sm">PT</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 px-4 sm:px-6">
+        <div class="max-w-6xl mx-auto text-center relative z-10">
+            <div class="inline-block mb-4 sm:mb-6 px-3 sm:px-4 py-1 sm:py-2 bg-blue-500/10 border border-blue-500/30 rounded-full text-xs sm:text-sm text-cyan-400 font-medium backdrop-blur-sm animate-fade-in">
+                ⚡ <span class="lang-pt">Disponível para novos desafios</span><span class="lang-en lang-hidden">Available for new challenges</span>
+            </div>
+            
+            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-6 sm:mb-8 leading-tight animate-fade-in-up" style="animation-delay: 0.2s">
+                <span class="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent lang-pt">
+                    Arquitetura de Dados
+                </span>
+                <span class="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent lang-en lang-hidden">
+                    Data Architecture
+                </span>
+                <br>
+                <span class="text-slate-100 lang-pt">que Impulsiona Negócios</span>
+                <span class="text-slate-100 lang-en lang-hidden">that Drives Business</span>
+            </h1>
+            
+            <p class="text-base sm:text-xl md:text-2xl text-slate-300 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-in-up px-4" style="animation-delay: 0.4s">
+                <span class="lang-pt">Tech Lead especializado em <span class="text-cyan-400 font-semibold">Data Lakehouse</span>, pipelines escaláveis e <span class="text-blue-400 font-semibold">observabilidade de classe mundial</span>. Transformando dados brutos em vantagem competitiva.</span>
+                <span class="lang-en lang-hidden">Tech Lead specialized in <span class="text-cyan-400 font-semibold">Data Lakehouse</span>, scalable pipelines and <span class="text-blue-400 font-semibold">world-class observability</span>. Transforming raw data into competitive advantage.</span>
+            </p>
+
+            <div class="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-6 justify-center mb-12 sm:mb-16 animate-fade-in-up" style="animation-delay: 0.6s">
+                <a href="https://linkedin.com/in/lfmtcs" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full hover:shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300 font-medium hover:scale-105 text-sm sm:text-base">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                        <rect width="4" height="12" x="2" y="9"/>
+                        <circle cx="4" cy="4" r="2"/>
+                    </svg>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/LuisFelipeMTCS" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-slate-800/50 border border-slate-700 rounded-full hover:bg-slate-700/50 hover:border-cyan-500/50 transition-all duration-300 font-medium hover:scale-105 backdrop-blur-sm text-sm sm:text-base">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                        <path d="M9 18c-4.51 2-5-2-7-2"/>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 max-w-4xl mx-auto animate-fade-in-up" style="animation-delay: 0.8s">
+                <div class="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105">
+                    <div class="text-2xl sm:text-3xl font-bold text-cyan-400 mb-1 sm:mb-2">35%</div>
+                    <div class="text-xs sm:text-sm text-slate-400 lang-pt">Aumento na estabilidade de APIs</div>
+                    <div class="text-xs sm:text-sm text-slate-400 lang-en lang-hidden">Increase in API stability</div>
+                </div>
+                <div class="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105">
+                    <div class="text-2xl sm:text-3xl font-bold text-cyan-400 mb-1 sm:mb-2">4+</div>
+                    <div class="text-xs sm:text-sm text-slate-400 lang-pt">Anos de experiência</div>
+                    <div class="text-xs sm:text-sm text-slate-400 lang-en lang-hidden">Years of experience</div>
+                </div>
+                <div class="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105">
+                    <div class="text-2xl sm:text-3xl font-bold text-cyan-400 mb-1 sm:mb-2">120+</div>
+                    <div class="text-xs sm:text-sm text-slate-400 lang-pt">DAGs em produção</div>
+                    <div class="text-xs sm:text-sm text-slate-400 lang-en lang-hidden">DAGs in production</div>
+                </div>
+                <div class="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105">
+                    <div class="text-2xl sm:text-3xl font-bold text-cyan-400 mb-1 sm:mb-2">99.5%</div>
+                    <div class="text-xs sm:text-sm text-slate-400 lang-pt">SLA de disponibilidade</div>
+                    <div class="text-xs sm:text-sm text-slate-400 lang-en lang-hidden">Availability SLA</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 sm:py-32 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12">
+                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-cyan-400 flex-shrink-0">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                <h2 class="text-3xl sm:text-5xl font-bold lang-pt">Sobre Mim</h2>
+                <h2 class="text-3xl sm:text-5xl font-bold lang-en lang-hidden">About Me</h2>
+            </div>
+
+            <div class="grid md:grid-cols-5 gap-8 sm:gap-12 items-center">
+                <!-- Profile Photo -->
+                <div class="md:col-span-2 flex justify-center">
+                    <div class="relative w-full max-w-sm">
+                        <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-3xl blur-2xl opacity-30"></div>
+                        <img 
+                            src="fot.png" 
+                            alt="Luis Felipe - Tech Lead Engenheiro de Dados" 
+                            class="profile-image relative rounded-3xl border-4 border-slate-700/50 shadow-2xl hover:scale-105 transition-transform duration-300 w-full"
+                        >
+                    </div>
+                </div>
+
+                <!-- About Content PT -->
+                <div class="md:col-span-3 space-y-4 sm:space-y-6 lang-pt">
+                    <div class="space-y-4 sm:space-y-6 text-base sm:text-lg leading-relaxed text-slate-300">
+                        <p>
+                            Com mais de <span class="text-cyan-400 font-semibold">4 anos de experiência</span> em Engenharia de Dados, 
+                            especializei-me em construir infraestruturas de dados que não apenas processam informações, mas 
+                            <span class="text-blue-400 font-semibold"> transformam estratégias de negócio</span>.
+                        </p>
+                        
+                        <p>
+                            Minha trajetória evoluiu de Engenheiro de Dados Pleno para <span class="text-cyan-400 font-semibold">Tech Lead</span>, 
+                            onde lidero equipes técnicas na definição de padrões arquiteturais, implementação de soluções de 
+                            <span class="text-blue-400 font-semibold"> observabilidade</span> e construção de pipelines resilientes que sustentam 
+                            operações críticas de alta disponibilidade.
+                        </p>
+
+                        <p>
+                            Especialista em <span class="text-cyan-400 font-semibold">Data Lakehouse</span> com arquitetura Medallion (Bronze, Silver, Gold), 
+                            orquestração avançada com Apache Airflow e desenvolvimento de crawlers de alta performance. Meu foco está em criar 
+                            soluções escaláveis que unem excelência técnica com impacto mensurável nos resultados.
+                        </p>
+                    </div>
+
+                    <div class="pt-4 sm:pt-6 border-t border-slate-700">
+                        <div class="flex items-center gap-3 mb-3 sm:mb-4">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-cyan-400">
+                                <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+                                <path d="M22 10v6"/>
+                                <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+                            </svg>
+                            <span class="font-semibold text-slate-100 text-base sm:text-lg">Formação Acadêmica</span>
+                        </div>
+                        <div class="space-y-2 sm:space-y-3 text-sm sm:text-base text-slate-400">
+                            <div class="flex items-center gap-3">
+                                <span class="text-xl sm:text-2xl">📊</span>
+                                <span>Tecnólogo em Data Science - FIAP (concluído)</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-xl sm:text-2xl">💻</span>
+                                <span>Bacharel em Sistemas de Informação - UEG (concluído)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 sm:pt-6 grid grid-cols-2 gap-3 sm:gap-4">
+                        <div class="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-xl sm:rounded-2xl p-3 sm:p-4 hover:border-cyan-500/50 transition-all">
+                            <div class="text-2xl sm:text-3xl font-bold text-cyan-400 mb-1">2M+</div>
+                            <div class="text-xs sm:text-sm text-slate-400">Registros/dia</div>
+                        </div>
+                        <div class="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-xl sm:rounded-2xl p-3 sm:p-4 hover:border-green-500/50 transition-all">
+                            <div class="text-2xl sm:text-3xl font-bold text-green-400 mb-1">60%</div>
+                            <div class="text-xs sm:text-sm text-slate-400">Redução de tempo</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Content EN -->
+                <div class="md:col-span-3 space-y-4 sm:space-y-6 lang-en lang-hidden">
+                    <div class="space-y-4 sm:space-y-6 text-base sm:text-lg leading-relaxed text-slate-300">
+                        <p>
+                            With over <span class="text-cyan-400 font-semibold">4 years of experience</span> in Data Engineering, 
+                            I specialized in building data infrastructures that not only process information but 
+                            <span class="text-blue-400 font-semibold">transform business strategies</span>.
+                        </p>
+                        
+                        <p>
+                            My journey evolved from Mid-Level Data Engineer to <span class="text-cyan-400 font-semibold">Tech Lead</span>, 
+                            where I lead technical teams in defining architectural standards, implementing 
+                            <span class="text-blue-400 font-semibold">observability</span> solutions, and building resilient pipelines that support 
+                            critical high-availability operations.
+                        </p>
+
+                        <p>
+                            Expert in <span class="text-cyan-400 font-semibold">Data Lakehouse</span> with Medallion architecture (Bronze, Silver, Gold), 
+                            advanced orchestration with Apache Airflow, and high-performance crawler development. My focus is on creating 
+                            scalable solutions that combine technical excellence with measurable business impact.
+                        </p>
+                    </div>
+
+                    <div class="pt-4 sm:pt-6 border-t border-slate-700">
+                        <div class="flex items-center gap-3 mb-3 sm:mb-4">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-cyan-400">
+                                <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+                                <path d="M22 10v6"/>
+                                <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+                            </svg>
+                            <span class="font-semibold text-slate-100 text-base sm:text-lg">Education</span>
+                        </div>
+                        <div class="space-y-2 sm:space-y-3 text-sm sm:text-base text-slate-400">
+                            <div class="flex items-center gap-3">
+                                <span class="text-xl sm:text-2xl">📊</span>
+                                <span>Associate Degree in Data Science - FIAP (completed)</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-xl sm:text-2xl">💻</span>
+                                <span>Bachelor's in Information Systems - UEG (completed)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 sm:pt-6 grid grid-cols-2 gap-3 sm:gap-4">
+                        <div class="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-xl sm:rounded-2xl p-3 sm:p-4 hover:border-cyan-500/50 transition-all">
+                            <div class="text-2xl sm:text-3xl font-bold text-cyan-400 mb-1">2M+</div>
+                            <div class="text-xs sm:text-sm text-slate-400">Records/day</div>
+                        </div>
+                        <div class="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-xl sm:rounded-2xl p-3 sm:p-4 hover:border-green-500/50 transition-all">
+                            <div class="text-2xl sm:text-3xl font-bold text-green-400 mb-1">60%</div>
+                            <div class="text-xs sm:text-sm text-slate-400">Time reduction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Pipeline Section -->
+    <section id="pipeline" class="py-16 sm:py-32 bg-slate-900/50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 sm:mb-16">
+                <div class="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-cyan-400 flex-shrink-0">
+                        <rect width="8" height="8" x="3" y="3" rx="2"/>
+                        <path d="M7 11v4a2 2 0 0 0 2 2h4"/>
+                        <rect width="8" height="8" x="13" y="13" rx="2"/>
+                    </svg>
+                    <h2 class="text-3xl sm:text-5xl font-bold lang-pt">Pipeline de Engenharia de Dados</h2>
+                    <h2 class="text-3xl sm:text-5xl font-bold lang-en lang-hidden">Data Engineering Pipeline</h2>
+                </div>
+                <p class="text-base sm:text-xl text-slate-300 max-w-3xl mx-auto lang-pt">
+                    Stack tecnológico completo organizado por etapas do pipeline de dados
+                </p>
+                <p class="text-base sm:text-xl text-slate-300 max-w-3xl mx-auto lang-en lang-hidden">
+                    Complete tech stack organized by data pipeline stages
+                </p>
+            </div>
+
+            <!-- Pipeline Flow - Cards com altura fixa -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-6 mb-12 sm:mb-16">
+                
+                <!-- 1. Ingestão -->
+                <div class="bg-gradient-to-br from-blue-600/20 to-cyan-600/20 backdrop-blur-sm border border-cyan-500/50 rounded-2xl p-4 sm:p-5 hover:scale-105 transition-all duration-300 flex flex-col h-full">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="bg-cyan-500/20 p-2 rounded-xl flex-shrink-0">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-cyan-400">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" x2="12" y1="15" y2="3"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold text-cyan-300 pipeline-card-title lang-pt">Ingestão</h3>
+                        <h3 class="text-base sm:text-lg font-bold text-cyan-300 pipeline-card-title lang-en lang-hidden">Ingestion</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-3 lang-pt">Coleta de múltiplas fontes</p>
+                    <p class="text-xs text-slate-400 mb-3 lang-en lang-hidden">Multi-source collection</p>
+                    <div class="space-y-1.5 flex-grow">
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-cyan-400/50">Python</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-cyan-400/50">Selenium</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-cyan-400/50">Puppeteer</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-cyan-400/50">Scrapy</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-cyan-400/50">REST APIs</div>
+                    </div>
+                </div>
+
+                <!-- 2. Processamento -->
+                <div class="bg-gradient-to-br from-purple-600/20 to-pink-600/20 backdrop-blur-sm border border-purple-500/50 rounded-2xl p-4 sm:p-5 hover:scale-105 transition-all duration-300 flex flex-col h-full">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="bg-purple-500/20 p-2 rounded-xl flex-shrink-0">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-purple-400">
+                                <rect width="16" height="16" x="4" y="4" rx="2"/>
+                                <rect width="6" height="6" x="9" y="9" rx="1"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold text-purple-300 pipeline-card-title lang-pt">Processamento</h3>
+                        <h3 class="text-base sm:text-lg font-bold text-purple-300 pipeline-card-title lang-en lang-hidden">Processing</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-3 lang-pt">Transformação e limpeza</p>
+                    <p class="text-xs text-slate-400 mb-3 lang-en lang-hidden">Transformation & cleaning</p>
+                    <div class="space-y-1.5 flex-grow">
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-purple-400/50">PySpark</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-purple-400/50">Apache Spark</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-purple-400/50">Pandas</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-purple-400/50">SQL</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-purple-400/50">Scala</div>
+                    </div>
+                </div>
+
+                <!-- 3. Orquestração -->
+                <div class="bg-gradient-to-br from-orange-600/20 to-red-600/20 backdrop-blur-sm border border-orange-500/50 rounded-2xl p-4 sm:p-5 hover:scale-105 transition-all duration-300 flex flex-col h-full">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="bg-orange-500/20 p-2 rounded-xl flex-shrink-0">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-orange-400">
+                                <line x1="6" x2="6" y1="3" y2="15"/>
+                                <circle cx="18" cy="6" r="3"/>
+                                <circle cx="6" cy="18" r="3"/>
+                                <path d="M18 9a9 9 0 0 1-9 9"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold text-orange-300 pipeline-card-title lang-pt">Orquestração</h3>
+                        <h3 class="text-base sm:text-lg font-bold text-orange-300 pipeline-card-title lang-en lang-hidden">Orchestration</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-3 lang-pt">Gestão de workflows</p>
+                    <p class="text-xs text-slate-400 mb-3 lang-en lang-hidden">Workflow management</p>
+                    <div class="space-y-1.5 flex-grow">
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-orange-400/50">Airflow</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-orange-400/50">DAGs</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-orange-400/50">Kubernetes</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-orange-400/50">Docker</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-orange-400/50">CI/CD</div>
+                    </div>
+                </div>
+
+                <!-- 4. Armazenamento -->
+                <div class="bg-gradient-to-br from-green-600/20 to-emerald-600/20 backdrop-blur-sm border border-green-500/50 rounded-2xl p-4 sm:p-5 hover:scale-105 transition-all duration-300 flex flex-col h-full">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="bg-green-500/20 p-2 rounded-xl flex-shrink-0">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-green-400">
+                                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                                <path d="M3 5V19A9 3 0 0 0 21 19V5"/>
+                                <path d="M3 12A9 3 0 0 0 21 12"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold text-green-300 pipeline-card-title lang-pt">Armazenamento</h3>
+                        <h3 class="text-base sm:text-lg font-bold text-green-300 pipeline-card-title lang-en lang-hidden">Storage</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-3">Lakes & Warehouses</p>
+                    <div class="space-y-1.5 flex-grow">
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-green-400/50">AWS S3</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-green-400/50">PostgreSQL</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-green-400/50">MongoDB</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-green-400/50">Delta Lake</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-green-400/50">Redis</div>
+                    </div>
+                </div>
+
+                <!-- 5. Observabilidade -->
+                <div class="bg-gradient-to-br from-blue-600/20 to-indigo-600/20 backdrop-blur-sm border border-blue-500/50 rounded-2xl p-4 sm:p-5 hover:scale-105 transition-all duration-300 flex flex-col h-full">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="bg-blue-500/20 p-2 rounded-xl flex-shrink-0">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-blue-400">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold text-blue-300 pipeline-card-title lang-pt">Observabilidade</h3>
+                        <h3 class="text-base sm:text-lg font-bold text-blue-300 pipeline-card-title lang-en lang-hidden">Observability</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-3 lang-pt">Monitoramento</p>
+                    <p class="text-xs text-slate-400 mb-3 lang-en lang-hidden">Monitoring</p>
+                    <div class="space-y-1.5 flex-grow">
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-blue-400/50">Logs</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-blue-400/50 lang-pt">Métricas</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-blue-400/50 lang-en lang-hidden">Metrics</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-blue-400/50">Grafana</div>
+                        <div class="tech-badge bg-slate-800/50 border border-slate-600/50 rounded-lg p-1.5 text-xs hover:border-blue-400/50">CloudWatch</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Cloud Platforms & Medallion (mantido igual) -->
+            <div class="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 mb-6 sm:mb-8">
+                <div class="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-cyan-400">
+                        <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+                    </svg>
+                    <h3 class="text-xl sm:text-2xl font-bold lang-pt">Cloud Platforms</h3>
+                    <h3 class="text-xl sm:text-2xl font-bold lang-en lang-hidden">Cloud Platforms</h3>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                    <div class="bg-gradient-to-br from-orange-600/20 to-orange-800/20 border border-orange-500/50 rounded-xl p-3 sm:p-4 text-center hover:scale-105 transition-all">
+                        <div class="text-2xl sm:text-3xl mb-2">☁️</div>
+                        <div class="font-bold text-orange-300">AWS</div>
+                        <div class="text-xs text-slate-400 mt-1">EC2, S3, Lambda</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-600/20 to-blue-800/20 border border-blue-500/50 rounded-xl p-3 sm:p-4 text-center hover:scale-105 transition-all">
+                        <div class="text-2xl sm:text-3xl mb-2">🌐</div>
+                        <div class="font-bold text-blue-300">GCP</div>
+                        <div class="text-xs text-slate-400 mt-1">BigQuery</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-cyan-600/20 to-cyan-800/20 border border-cyan-500/50 rounded-xl p-3 sm:p-4 text-center hover:scale-105 transition-all">
+                        <div class="text-2xl sm:text-3xl mb-2">🔷</div>
+                        <div class="font-bold text-cyan-300">Azure</div>
+                        <div class="text-xs text-slate-400 mt-1">Synapse</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-600/20 to-purple-800/20 border border-purple-500/50 rounded-xl p-3 sm:p-4 text-center hover:scale-105 transition-all">
+                        <div class="text-2xl sm:text-3xl mb-2">🧱</div>
+                        <div class="font-bold text-purple-300">Databricks</div>
+                        <div class="text-xs text-slate-400 mt-1">Delta Lake</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-yellow-600/10 to-orange-600/10 backdrop-blur-sm border border-yellow-500/30 rounded-2xl sm:rounded-3xl p-6 sm:p-8">
+                <div class="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-yellow-400">
+                        <path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/>
+                        <path d="m6.08 9.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/>
+                    </svg>
+                    <h3 class="text-xl sm:text-2xl font-bold lang-pt">Arquitetura Medallion</h3>
+                    <h3 class="text-xl sm:text-2xl font-bold lang-en lang-hidden">Medallion Architecture</h3>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+                    <div class="bg-slate-800/50 border border-yellow-700/50 rounded-xl p-4 sm:p-6 hover:scale-105 transition-all">
+                        <div class="text-3xl sm:text-4xl mb-2 sm:mb-3">🥉</div>
+                        <div class="font-bold text-lg sm:text-xl text-yellow-600 mb-2">Bronze</div>
+                        <div class="text-xs sm:text-sm text-slate-400 lang-pt">Dados brutos</div>
+                        <div class="text-xs sm:text-sm text-slate-400 lang-en lang-hidden">Raw data</div>
+                    </div>
+                    <div class="bg-slate-800/50 border border-slate-400/50 rounded-xl p-4 sm:p-6 hover:scale-105 transition-all">
+                        <div class="text-3xl sm:text-4xl mb-2 sm:mb-3">🥈</div>
+                        <div class="font-bold text-lg sm:text-xl text-slate-300 mb-2">Silver</div>
+                        <div class="text-xs sm:text-sm text-slate-400 lang-pt">Dados limpos</div>
+                        <div class="text-xs sm:text-sm text-slate-400 lang-en lang-hidden">Clean data</div>
+                    </div>
+                    <div class="bg-slate-800/50 border border-yellow-400/50 rounded-xl p-4 sm:p-6 hover:scale-105 transition-all">
+                        <div class="text-3xl sm:text-4xl mb-2 sm:mb-3">🥇</div>
+                        <div class="font-bold text-lg sm:text-xl text-yellow-400 mb-2">Gold</div>
+                        <div class="text-xs sm:text-sm text-slate-400 lang-pt">Dados agregados</div>
+                        <div class="text-xs sm:text-sm text-slate-400 lang-en lang-hidden">Aggregated data</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 sm:py-32 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12">
+                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-cyan-400 flex-shrink-0">
+                    <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+                <h2 class="text-3xl sm:text-5xl font-bold lang-pt">Projetos em Destaque</h2>
+                <h2 class="text-3xl sm:text-5xl font-bold lang-en lang-hidden">Featured Projects</h2>
+            </div>
+
+            <!-- Pipeline Vendas Project -->
+            <div class="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 hover:border-cyan-500/50 transition-all duration-300 group mb-8">
+                <div class="flex items-start gap-4 sm:gap-6">
+                    <div class="bg-gradient-to-br from-blue-600/20 to-cyan-600/20 p-3 sm:p-4 rounded-2xl border border-cyan-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
+                        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-cyan-400">
+                            <line x1="12" x2="12" y1="2" y2="22"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+
+                    <div class="flex-1">
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+                            <div>
+                                <h3 class="text-xl sm:text-2xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">Pipeline de Vendas - Data Analytics</h3>
+                                <div class="text-sm text-slate-400">Data Engineering Project</div>
+                            </div>
+                            <a href="https://github.com/LuisFelipeMTCS/pipeline-vendas" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 py-2 bg-slate-700/50 border border-slate-600 rounded-lg hover:border-cyan-500/50 transition-all text-sm font-medium whitespace-nowrap">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                                    <path d="M9 18c-4.51 2-5-2-7-2"/>
+                                </svg>
+                                <span class="lang-pt">Ver no GitHub</span>
+                                <span class="lang-en lang-hidden">View on GitHub</span>
+                            </a>
+                        </div>
+
+                        <p class="text-sm sm:text-base text-slate-300 mb-6 leading-relaxed lang-pt">
+                            Pipeline completo de ETL para análise de dados de vendas, implementando extração de múltiplas fontes, 
+                            transformação com Python/Pandas e carga em banco de dados relacional. Inclui dashboards analíticos 
+                            e automação de relatórios.
+                        </p>
+                        <p class="text-sm sm:text-base text-slate-300 mb-6 leading-relaxed lang-en lang-hidden">
+                            Complete ETL pipeline for sales data analysis, implementing extraction from multiple sources, 
+                            transformation with Python/Pandas and loading into relational database. Includes analytical dashboards 
+                            and report automation.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-slate-700/50 border border-slate-600/50 rounded-full text-xs font-medium text-cyan-300">Python</span>
+                            <span class="px-3 py-1 bg-slate-700/50 border border-slate-600/50 rounded-full text-xs font-medium text-cyan-300">Pandas</span>
+                            <span class="px-3 py-1 bg-slate-700/50 border border-slate-600/50 rounded-full text-xs font-medium text-cyan-300">PostgreSQL</span>
+                            <span class="px-3 py-1 bg-slate-700/50 border border-slate-600/50 rounded-full text-xs font-medium text-cyan-300">ETL</span>
+                            <span class="px-3 py-1 bg-slate-700/50 border border-slate-600/50 rounded-full text-xs font-medium text-cyan-300">Data Analytics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More Projects Coming Soon -->
+            <div class="text-center text-slate-400 py-12 sm:py-16 bg-slate-800/20 border border-slate-700/50 rounded-2xl sm:rounded-3xl">
+                <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="text-cyan-400/50 mx-auto mb-4">
+                    <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+                <p class="text-base sm:text-lg lang-pt">Mais projetos em breve...</p>
+                <p class="text-base sm:text-lg lang-en lang-hidden">More projects coming soon...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact/WhatsApp Section -->
+    <section id="contact" class="py-16 sm:py-32 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+            <h2 class="text-3xl sm:text-5xl font-bold mb-6 sm:mb-8 lang-pt">Vamos Construir Algo Extraordinário</h2>
+            <h2 class="text-3xl sm:text-5xl font-bold mb-6 sm:mb-8 lang-en lang-hidden">Let's Build Something Extraordinary</h2>
+            
+            <p class="text-base sm:text-xl text-slate-300 mb-8 sm:mb-12 leading-relaxed lang-pt">
+                Estou aberto a oportunidades desafiadoras em Engenharia de Dados, Tech Lead e Arquitetura de Dados. 
+                Entre em contato via WhatsApp ou pelas redes sociais.
+            </p>
+            <p class="text-base sm:text-xl text-slate-300 mb-8 sm:mb-12 leading-relaxed lang-en lang-hidden">
+                I'm open to challenging opportunities in Data Engineering, Tech Lead, and Data Architecture. 
+                Contact me via WhatsApp or social media.
+            </p>
+
+            <div class="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-6 justify-center mb-8 sm:mb-12">
+                <a 
+                    href="https://wa.me/5562982650556?text=Ol%C3%A1%20Luis%20Felipe%2C%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar!" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-green-600 to-green-500 rounded-full hover:shadow-2xl hover:shadow-green-500/50 transition-all duration-300 font-medium hover:scale-105 text-sm sm:text-base"
+                >
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    <span class="lang-pt">WhatsApp</span>
+                    <span class="lang-en lang-hidden">WhatsApp</span>
+                </a>
+                <a 
+                    href="https://linkedin.com/in/lfmtcs" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full hover:shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300 font-medium hover:scale-105 text-sm sm:text-base"
+                >
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                        <rect width="4" height="12" x="2" y="9"/>
+                        <circle cx="4" cy="4" r="2"/>
+                    </svg>
+                    LinkedIn
+                </a>
+                <a 
+                    href="https://github.com/LuisFelipeMTCS" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-slate-800/50 border border-slate-700 rounded-full hover:bg-slate-700/50 hover:border-cyan-500/50 transition-all duration-300 font-medium hover:scale-105 backdrop-blur-sm text-sm sm:text-base"
+                >
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                        <path d="M9 18c-4.51 2-5-2-7-2"/>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+
+            <div class="text-slate-400 text-xs sm:text-sm space-y-1">
+                <p>📍 Anápolis, GO, Brasil</p>
+                <p>📱 <a href="https://wa.me/5562982650556" class="hover:text-cyan-400 transition-colors">(62) 98265-0556</a></p>
+                <p>📧 <a href="mailto:luisxfelipexluis@gmail.com" class="hover:text-cyan-400 transition-colors">luisxfelipexluis@gmail.com</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-6 sm:py-8 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center text-slate-500 text-xs sm:text-sm">
+            <p class="lang-pt">© 2026 Luis Felipe Maio Toledo de Carvalho e Silva. Todos os direitos reservados.</p>
+            <p class="lang-en lang-hidden">© 2026 Luis Felipe Maio Toledo de Carvalho e Silva. All rights reserved.</p>
+            <p class="mt-2 lang-pt">Construído com HTML, Tailwind CSS e paixão por dados.</p>
+            <p class="mt-2 lang-en lang-hidden">Built with HTML, Tailwind CSS and passion for data.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Language Switcher
+        let currentLang = 'pt';
+        const langToggle = document.getElementById('langToggle');
+        const currentFlag = document.getElementById('currentFlag');
+        const currentLangText = document.getElementById('currentLang');
+        
+        function toggleLanguage() {
+            currentLang = currentLang === 'pt' ? 'en' : 'pt';
+            
+            if (currentLang === 'pt') {
+                currentFlag.textContent = '🇧🇷';
+                currentLangText.textContent = 'PT';
+                document.documentElement.lang = 'pt-BR';
+            } else {
+                currentFlag.textContent = '🇺🇸';
+                currentLangText.textContent = 'EN';
+                document.documentElement.lang = 'en';
+            }
+            
+            document.querySelectorAll('.lang-pt').forEach(el => {
+                el.classList.toggle('lang-hidden', currentLang !== 'pt');
+            });
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', currentLang !== 'en');
+            });
+            
+            localStorage.setItem('preferred-language', currentLang);
+        }
+        
+        const savedLang = localStorage.getItem('preferred-language');
+        if (savedLang && savedLang !== currentLang) {
+            toggleLanguage();
+        }
+        
+        langToggle.addEventListener('click', toggleLanguage);
+
+        // Navbar scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            const currentScroll = window.scrollY;
+            
+            if (currentScroll > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Smooth scroll for anchor links with offset
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                
+                if (href === '#' || href === '') return;
+                
+                e.preventDefault();
+                
+                const targetId = href.substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    const navbarHeight = 80;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navbarHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
